@@ -1,4 +1,4 @@
-package biz.geticard.wscard.controler;
+package biz.geticard.wscard.controller;
 
 /**
  *
