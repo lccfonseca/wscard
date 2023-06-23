@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class WscardApplication {
+public class WsCardApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(WscardApplication.class, args);
+		SpringApplication.run(WsCardApplication.class, args);
 	}
 
 }

@@ -17,15 +17,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "social")
-public class Social {
+@Table(name = "card")
+public class Card {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    String description;
-    String icon;
-    String url;
-    String profiles_url;
+    String name;
+    String phone;
+    String email;
+    String minibio;
     
 }
