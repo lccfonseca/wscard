@@ -22,10 +22,10 @@ public class Social {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    String description;
-    String icon;
-    String url;
-    String profiles_url;
+    private Long id;
+    private String description;
+    private String icon;
+    private String url;
+    private String profiles_url;
     
 }
