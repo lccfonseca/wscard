@@ -1,7 +1,7 @@
 package biz.geticard.wscard.controller;
 
-import biz.geticard.wscard.model.Social;
-import biz.geticard.wscard.repository.SocialRepository;
+import biz.geticard.wscard.model.CardSocial;
+import biz.geticard.wscard.repository.CardSocialRepository;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,46 +24,44 @@ Enzo Maldinni Montanha Rodrigues
  */
 
 @RestController
-@RequestMapping({"/social"})
-public class SocialController {
+@RequestMapping({"/cardsocial"})
+public class CardSocialController {
     
-    SocialRepository repository;
+    CardSocialRepository repository;
 
-    public SocialController(SocialRepository repository) {
+    public CardSocialController(CardSocialRepository repository) {
         this.repository = repository;
     }
             
     @GetMapping
-    public List<Social> findAll(){
+    public List<CardSocial> findAll(){
         return repository.findAll();
     }
     
     @PostMapping
-    public Social create(@RequestBody Social social){
-       return repository.save(social);
+    public CardSocial create(@RequestBody CardSocial cardsocial){
+       return repository.save(cardsocial);
     }
     
     @GetMapping(value = "/{id}")
-    public Social findById(@PathVariable Long id) {
+    public CardSocial findById(@PathVariable Long id) {
         return repository.findById(id).get();
     }
     
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Social> update(@PathVariable("id") Long id,
-            @RequestBody Social data) {
+    public ResponseEntity<CardSocial> update(@PathVariable("id") Long id,
+            @RequestBody CardSocial data) {
         return repository.findById(id)
                 .map(record -> {
-                    record.setDescription(data.getDescription());
-                    record.setIcon(data.getIcon());
-                    record.setUrl(data.getUrl());
-                    record.setProfiles_url(data.getProfiles_url());
-                    Social updated = repository.save(record);
+                    record.setProfile(data.getProfile());
+                    record.setLabel(data.getLabel());
+                    CardSocial updated = repository.save(record);
                     return ResponseEntity.ok().body(updated);
                 }).orElse(ResponseEntity.notFound().build());
     }
     
     @DeleteMapping("/{id}")
-    public ResponseEntity<Social> delete(@PathVariable Long id){
+    public ResponseEntity<CardSocial> delete(@PathVariable Long id){
         this.repository.deleteById(id);
         return ResponseEntity.ok().build();
     }

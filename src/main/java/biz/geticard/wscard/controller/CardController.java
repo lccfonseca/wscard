@@ -1,8 +1,7 @@
 package biz.geticard.wscard.controller;
 
-import biz.geticard.wscard.model.Social;
-import biz.geticard.wscard.repository.SocialRepository;
 import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import biz.geticard.wscard.model.Card;
+import biz.geticard.wscard.repository.CardRepository;
 
 /*
 Grupo1:
@@ -22,48 +22,47 @@ Alex Dias
 Ismael Freitas de Oliveira
 Enzo Maldinni Montanha Rodrigues
  */
-
 @RestController
-@RequestMapping({"/social"})
-public class SocialController {
+@RequestMapping({"/card"})
+public class CardController {
     
-    SocialRepository repository;
+    CardRepository repository;
 
-    public SocialController(SocialRepository repository) {
+    public CardController(CardRepository repository) {
         this.repository = repository;
     }
             
     @GetMapping
-    public List<Social> findAll(){
+    public List<Card> findAll(){
         return repository.findAll();
     }
     
     @PostMapping
-    public Social create(@RequestBody Social social){
-       return repository.save(social);
+    public Card create(@RequestBody Card card){
+       return repository.save(card);
     }
     
     @GetMapping(value = "/{id}")
-    public Social findById(@PathVariable Long id) {
+    public Card findById(@PathVariable Long id) {
         return repository.findById(id).get();
     }
     
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Social> update(@PathVariable("id") Long id,
-            @RequestBody Social data) {
+    public ResponseEntity<Card> update(@PathVariable("id") Long id,
+            @RequestBody Card data) {
         return repository.findById(id)
                 .map(record -> {
-                    record.setDescription(data.getDescription());
-                    record.setIcon(data.getIcon());
-                    record.setUrl(data.getUrl());
-                    record.setProfiles_url(data.getProfiles_url());
-                    Social updated = repository.save(record);
+               record.setEmail(data.getEmail());
+                record.setMinibio(data.getMinibio());
+                record.setName(data.getName());
+                record.setPhone(data.getPhone());
+                    Card updated = repository.save(record);
                     return ResponseEntity.ok().body(updated);
                 }).orElse(ResponseEntity.notFound().build());
     }
     
     @DeleteMapping("/{id}")
-    public ResponseEntity<Social> delete(@PathVariable Long id){
+    public ResponseEntity<Card> delete(@PathVariable Long id){
         this.repository.deleteById(id);
         return ResponseEntity.ok().build();
     }
